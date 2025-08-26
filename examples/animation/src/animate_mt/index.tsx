@@ -11,6 +11,7 @@ const AnimateAnimationExample = () => {
       </text>
       <view
         className="box"
+        id="view1"
         flatten={false}
         main-thread:bindtap={(event) => {
           "main thread";
