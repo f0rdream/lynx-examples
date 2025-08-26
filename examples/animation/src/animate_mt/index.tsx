@@ -5,14 +5,16 @@ import "./index.scss";
 
 const AnimateAnimationExample = () => {
   return (
-    <view style={{ width: "100%", height: "100%" }}>
+    <view style={{ width: "100%", height: "100%", padding: "150px 0" }}>
       <text style={{ textAlign: "center", fontSize: "30px" }}>
         Click To Start Animation
       </text>
       <view
         className="box"
+        flatten={false}
         main-thread:bindtap={(event) => {
           "main thread";
+          // @ts-expect-error Types Not Updated Yet
           const ani = event.currentTarget.animate(
             [
               {

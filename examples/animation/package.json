@@ -10,7 +10,7 @@
     "preview": "rspeedy preview"
   },
   "dependencies": {
-    "@lynx-js/react": "catalog:"
+    "@lynx-js/react": "0.112.4"
   },
   "files": [
     "dist/",
