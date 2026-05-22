@@ -1,5 +1,5 @@
 import { animate } from "@lynx-js/motion";
-import { runOnMainThread, useEffect, useMainThreadRef } from "@lynx-js/react";
+import { root, runOnMainThread, useEffect, useMainThreadRef } from "@lynx-js/react";
 import type { MainThread } from "@lynx-js/types";
 
 import "./styles.css";
@@ -44,18 +44,18 @@ export default function Basic() {
   }, []);
 
   return (
-    <view className="case-container">
+    <view className="case-container lunaris-dark">
       <view
+        className="motion-box"
         main-thread:ref={boxMTRef}
-        style={{
-          width: "100px",
-          height: "100px",
-          backgroundColor: "#8df0cc",
-          borderRadius: "10px",
-          transform: "scale(1.5)",
-        }}
       >
       </view>
     </view>
   );
+}
+
+root.render(<Basic />);
+
+if (import.meta.webpackHot) {
+  import.meta.webpackHot.accept();
 }

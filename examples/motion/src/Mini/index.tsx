@@ -57,14 +57,14 @@ export default function MiniExample() {
   }
 
   return (
-    <view className="mini-container">
+    <view className="mini-container lunaris-dark">
       <view main-thread:ref={boxRef} className="mini-box" />
       <view className="mini-controls">
         <view className="mini-btn" bindtap={handleTapSpring}>
-          <text>Spring Move</text>
+          <text className="mini-btn-text">Spring Move</text>
         </view>
         <view className="mini-btn" bindtap={handleTapScale}>
-          <text>Scale BackOut</text>
+          <text className="mini-btn-text">Scale</text>
         </view>
       </view>
     </view>

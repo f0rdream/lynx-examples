@@ -1,6 +1,6 @@
 import { motionValue } from "@lynx-js/motion";
 import type { MotionValue } from "@lynx-js/motion";
-import { runOnMainThread, useEffect, useMainThreadRef } from "@lynx-js/react";
+import { root, runOnMainThread, useEffect, useMainThreadRef } from "@lynx-js/react";
 import type { MainThread } from "@lynx-js/types";
 
 import "./styles.css";
@@ -8,6 +8,7 @@ import "./styles.css";
 export default function Basic() {
   const boxMTRef = useMainThreadRef<MainThread.Element>(null);
   const valueMTRef = useMainThreadRef<MotionValue<number>>();
+  const directionMTRef = useMainThreadRef(1);
   const intervalMTRef = useMainThreadRef<ReturnType<typeof setInterval> | null>(
     null,
   );
@@ -31,7 +32,16 @@ export default function Basic() {
     bindMotionValueCallback();
 
     intervalMTRef.current = setInterval(() => {
-      valueMTRef.current?.set(valueMTRef.current.get() + 0.5);
+      const value = valueMTRef.current;
+      if (!value) {
+        return;
+      }
+
+      const next = value.get() + directionMTRef.current * 0.15;
+      if (next >= 1.4 || next <= 0.8) {
+        directionMTRef.current *= -1;
+      }
+      value.set(next);
     }, 1000);
   }
 
@@ -60,18 +70,18 @@ export default function Basic() {
   }, []);
 
   return (
-    <view className="case-container">
+    <view className="case-container lunaris-dark">
       <view
+        className="motion-box"
         main-thread:ref={boxMTRef}
-        style={{
-          width: "100px",
-          height: "100px",
-          backgroundColor: "#8df0cc",
-          borderRadius: "10px",
-          transform: "scale(1.5)",
-        }}
       >
       </view>
     </view>
   );
+}
+
+root.render(<Basic />);
+
+if (import.meta.webpackHot) {
+  import.meta.webpackHot.accept();
 }
